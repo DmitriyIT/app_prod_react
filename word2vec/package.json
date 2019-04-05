@@ -1,0 +1,12 @@
+{
+  "name": "word2vec",
+  "version": "1.0.0",
+  "description": "",
+  "main": "word2vec.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
