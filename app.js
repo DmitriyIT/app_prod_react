@@ -7,13 +7,23 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+
 var app = express();
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'build')));
 
-app.get('/', (req, res) => {
-	res.sendFile(path.join(__dirname + '/build/index.html'));
-});
+// app.get('/', (req, res) => {
+// 	res.sendFile(path.join(__dirname + '/build/index.html'));
+// });
 
 app.post('/checkEmail', function(req, res) {
 	console.log(req.body);
@@ -165,9 +175,9 @@ app.post('/sendMsg', function(req, res) {
 
 app.get('/getMembers', function(req, res) {
 	var members = [
-		{name: 'Вася Грингки', job: 'js программист', img_src: '../../img/icon/vasia.jpg', id: 21, show_popup: false},
-		{name: 'Вася Грингки2', job: 'маркетолог', img_src: '../../img/icon/vasia.jpg', id: 31, show_popup: false},
-		{name: 'Вася Грингки3', job: 'дизайнер', img_src: '../../img/icon/vasia.jpg', id: 41, show_popup: false}
+		{name: 'Вася Грингки', job: 'js программист', img_src: './img/icon/vasia.jpg', id: 21, show_popup: false},
+		{name: 'Вася Грингки2', job: 'маркетолог', img_src: '../img/icon/vasia.jpg', id: 31, show_popup: false},
+		{name: 'Вася Грингки3', job: 'дизайнер', img_src: '/img/icon/vasia.jpg', id: 41, show_popup: false}
 	];
 	var isAdmin = true;
    res.json({
