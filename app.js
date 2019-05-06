@@ -10,6 +10,9 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+const fileUpload = require('express-fileupload');
+app.use(fileUpload());
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -21,9 +24,6 @@ app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'build')));
 
-// app.get('/', (req, res) => {
-// 	res.sendFile(path.join(__dirname + '/build/index.html'));
-// });
 
 app.post('/checkEmail', function(req, res) {
 	console.log(req.body);
@@ -53,6 +53,20 @@ app.post('/login', function(req, res) {
 	res.json(response);
 });
 
+
+
+app.get('/isAuth/:idStartup', function(req, res) {
+	console.log(req.params.idStartup);
+	// return { 
+	//  isAuth: true,
+	//  admin: true
+	// }
+	res.json({
+		isAuth: false,
+		admin: false
+	});
+});
+
 app.post('/reg', function(req, res) {
 	console.log(req.body);
 	var response;
@@ -74,6 +88,49 @@ app.post('/reg', function(req, res) {
 	res.json(response);
 });
 
+
+app.get('/getInfoProfile', function(req, res) {
+	var data = {
+		isAuth: true,
+		user_info: {
+			img_src: '../../img/icon/vasia.jpg',
+			email: 'email@yandex.ru',
+			fname: 'Вася',
+			sname: 'Васькин',
+			aboute: 'что то о себе'
+		}
+	}
+   res.json(data);
+});
+
+app.get('/getNotifications', function(req, res) {
+	var notifications = [
+		'Вас приняли в стартап (27.01.18)',
+		'За сегодня в чате старпата есть сообщения (27.01.18)'
+	];
+	// or notifications = undefined || null;
+   res.json({
+   	notifications: notifications
+   });
+});
+
+app.post('/changeUserData', function(req, res) {
+	console.log(req.body);
+	// var sampleFile = req.files.userImg;
+	// Needed premissions (run sudo or mb premissions on directory)
+	res.json({ans: 'yes'});
+});
+app.post('/sendUserImg', function(req, res) {
+	console.log(req.files.userImg);
+	var sampleFile = req.files.userImg;
+	// Needed premissions (run sudo or mb premissions on directory)
+	sampleFile.mv('./userImg.jpg', function(err) {
+	   if (err) return res.status(500).send(err);
+
+	   res.json({awd: 'uploaded'});
+   });
+});
+
 app.post('/createstartup', function(req, res) {
 	console.log(req.body);
 	res.json({ code: 21 });
@@ -89,7 +146,8 @@ app.get('/getInfoOfStartup', function(req, res) {
 	];
    res.json(fields);
 });
-app.get('/getInfoOfStartup1', function(req, res) {
+app.get('/getInfoOfStartup/:id', function(req, res) {
+	console.log(req.params.id);
 	var fields = {
 		'theme'        : 'Площадка для стартапов',
 		'description'  : 'Создать сайт, где люди смогут обхединяться в стартапы и создавать их. И еще текст тест',
@@ -98,6 +156,12 @@ app.get('/getInfoOfStartup1', function(req, res) {
 		'contacts'     : 'some mail'
 	}
    res.json(fields);
+});
+
+
+app.post('/sendInvite', function(req, res) {
+	console.log(req.body.idStartup);
+	res.json({ ans: true });
 });
 
 app.get('/mystartup', function(req, res) {
@@ -175,9 +239,9 @@ app.post('/sendMsg', function(req, res) {
 
 app.get('/getMembers', function(req, res) {
 	var members = [
-		{name: 'Вася Грингки', job: 'js программист', img_src: './img/icon/vasia.jpg', id: 21, show_popup: false},
-		{name: 'Вася Грингки2', job: 'маркетолог', img_src: '../img/icon/vasia.jpg', id: 31, show_popup: false},
-		{name: 'Вася Грингки3', job: 'дизайнер', img_src: '/img/icon/vasia.jpg', id: 41, show_popup: false}
+		{name: 'Вася Грингки', job: 'js программист', img_src: '../../img/icon/vasia.jpg', id: 21, show_popup: false},
+		{name: 'Вася Грингки2', job: 'маркетолог', img_src: '../../img/icon/vasia.jpg', id: 31, show_popup: false},
+		{name: 'Вася Грингки3', job: 'дизайнер', img_src: '../../img/icon/vasia.jpg', id: 41, show_popup: false}
 	];
 	var isAdmin = true;
    res.json({
@@ -207,9 +271,6 @@ app.post('/ansOfInvite', function(req, res) {
 	// messages.push(req.body.text);
 	res.json({name: 'Вася Грингки', job: req.body.job});
 });
-
-// app.use('/', indexRouter);
-// app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
