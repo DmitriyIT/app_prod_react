@@ -205,10 +205,17 @@ var startups = [
 	{title: 'Площадка для стартаdwadwв', body: 'Создать сайт, где люди смогут обхединяться в стартапы и создавать их.', id: 8, more_info: more_info}
 ];
 app.post('/findStartups', function(req, res) {
-	var res_sent = startups;
-	if (req.body.find_str == "awd") {
-		res_sent = [{title: 'ответ на awd str_search ;)', body: 'Создать сайт, где люди смогут обхединяться в стартапы и создавать их.', id: 4, more_info: more_info}];
+	var res_sent = {
+		isExistNextPage: true,
+		startups: startups
 	}
+	if (req.body.find_str == "awd") {
+		res_sent = {
+			isExistNextPage: false,
+			startups: [{title: 'ответ на awd str_search ;)', body: 'Создать сайт, где люди смогут обхединяться в стартапы и создавать их.', id: 4, more_info: more_info}]
+		}
+	}
+	if (req.body.start_from > 8) res_sent.isExistNextPage = false;
 	console.log(req.body);
 	res.json(res_sent);
 });
@@ -228,9 +235,51 @@ var messages = [
         text: 'что то в сообщении2'
     }
 ];
+
+// Разовая первая инициальзация
 app.get('/getMsgs', function(req, res) {
-   res.json(messages);
+	var fmsg = {
+        author_icon_path: '../../img/icon/vasia.jpg',
+        author_name: 'Вася Васькин',
+        time: '122',
+        text: 'что то в сообщении'
+    }
+   res.json({
+   	msgs: [fmsg, fmsg, fmsg, fmsg, fmsg, fmsg],
+   	moreHistoryExists: true,
+   	idFMsg: 25, // чтобы понимать с какого сообщ прошлые подгружать
+   	idLMsg: 40 // чтобы понимать какие сообщения будут новыми
+   });
 });
+app.post('/getNewMsgs', function(req, res) {
+	console.log(req.body.idLMsg);
+	var fmsg = {
+        author_icon_path: '../../img/icon/vasia.jpg',
+        author_name: 'Вася Васькин',
+        time: '122',
+        text: 'новые новые сообщения'
+   }
+   res.json({
+   	msgs: [fmsg, fmsg],
+   	idLMsg: 40 // чтобы понимать какие сообщения будут новыми
+   });
+});
+app.post('/getHistoryMsgs', function(req, res) {
+	console.log(req.body.idFMsg);
+	// messages.push(req.body.text);
+	var fmsg = {
+        author_icon_path: '../../img/icon/vasia.jpg',
+        author_name: 'Вася Васькин',
+        time: '122',
+        text: 'старые сообщения'
+   }
+   res.json({
+   	msgs: [fmsg, fmsg, fmsg, fmsg],
+   	moreHistoryExists: true,
+   	idFMsg: 2
+   });
+});
+
 app.post('/sendMsg', function(req, res) {
 	// console.log(req.body);
 	// messages.push(req.body.text);
