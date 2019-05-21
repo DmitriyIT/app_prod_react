@@ -41,7 +41,7 @@ app.post('/login', function(req, res) {
 			userData:{
 				name:"strawd",
 				surName:"str",
-				photo:"str",
+				photo:"../../img/icon/vasia.jpg",
 				description:"",
 				notifications:[],
 				myStartupId: 12
@@ -53,7 +53,10 @@ app.post('/login', function(req, res) {
 	res.json(response);
 });
 
-
+app.get('/logout', function(req, res) {
+	console.log('logout enter');
+	res.json({awd: 21});
+});
 
 app.get('/isAuth/:idStartup', function(req, res) {
 	console.log(req.params.idStartup);
@@ -76,7 +79,7 @@ app.post('/reg', function(req, res) {
 			userData:{
 				name:"strawd",
 				surName:"str",
-				photo:"str",
+				photo:"../../img/icon/vasia.jpg",
 				description:"",
 				notifications:[],
 				myStartupId: 12
