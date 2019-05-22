@@ -155,7 +155,16 @@ app.get('/getInfoOfStartup/:id', function(req, res) {
 		'theme'        : 'Площадка для стартапов',
 		'description'  : 'Создать сайт, где люди смогут обхединяться в стартапы и создавать их. И еще текст тест',
 		'shortDescr'   : 'Создать сайт, где люди смогут обхединяться в стартапы и создавать их',
-		'peopleNeeded' : 'программист JS; Маркетолог; Дизайнер',
+		'peopleNeeded' : [
+			{
+				position: 'программист JS',
+				isFound: true
+			},
+			{
+				position: 'Дизайнер',
+				isFound: false
+			}
+		],
 		'contacts'     : 'some mail'
 	}
    res.json(fields);
