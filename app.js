@@ -163,6 +163,10 @@ app.get('/getInfoOfStartup/:id', function(req, res) {
 			{
 				position: 'Дизайнер',
 				isFound: false
+			},
+			{
+				position: 'программист еще 1',
+				isFound: false
 			}
 		],
 		'contacts'     : 'some mail'
@@ -173,6 +177,8 @@ app.get('/getInfoOfStartup/:id', function(req, res) {
 
 app.post('/sendInvite', function(req, res) {
 	console.log(req.body.idStartup);
+	console.log(req.body.idStartup);
+	console.log(req.body.position);
 	res.json({ ans: true });
 });
 
