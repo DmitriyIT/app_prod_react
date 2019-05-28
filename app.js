@@ -157,15 +157,15 @@ app.get('/getInfoOfStartup/:id', function(req, res) {
 		'shortDescr'   : 'Создать сайт, где люди смогут обхединяться в стартапы и создавать их',
 		'peopleNeeded' : [
 			{
-				position: 'программист JS',
+				possition: 'программист JS',
 				isFound: true
 			},
 			{
-				position: 'Дизайнер',
+				possition: 'Дизайнер',
 				isFound: false
 			},
 			{
-				position: 'программист еще 1',
+				possition: 'программист еще 1',
 				isFound: false
 			}
 		],
