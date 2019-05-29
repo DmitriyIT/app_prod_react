@@ -201,15 +201,15 @@ var more_info = {
 	author_name: 'Вася Вася',
 	need_people: [
 		{
-			position: 'программист JS',
+			possition: 'программист JS',
 			isFound: true
 		},
 		{
-			position: 'Маркетолог',
+			possition: 'Маркетолог',
 			isFound: false
 		},
 		{
-			position: 'Дизайнер',
+			possition: 'Дизайнер',
 			isFound: true
 		}
 	]
