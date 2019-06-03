@@ -339,6 +339,18 @@ app.post('/ansOfInvite', function(req, res) {
 	res.json({name: 'Вася Грингки', job: req.body.job});
 });
 
+
+app.get('/exitFromStartup', function(req, res) {
+   res.json('kaawdda');
+});
+app.post('/ChangeStartup', function(req, res) {
+	// console.log(req.body);
+	// body = { theme: '', description: '', shortDescr: '', peopleNeeded: '', contacts: '' }
+	
+   res.json({ans: 'awd'});
+});
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
