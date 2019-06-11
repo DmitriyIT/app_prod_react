@@ -157,7 +157,7 @@ app.get('/getInfoOfStartup/:id', function(req, res) {
 		'shortDescr'   : 'Создать сайт, где люди смогут обхединяться в стартапы и создавать их',
 		'peopleNeeded' : [
 			{
-				possition: 'программист JS',
+				possition: 'программист JS', //position написан с ошибкой possition
 				isFound: true
 			},
 			{
@@ -177,8 +177,7 @@ app.get('/getInfoOfStartup/:id', function(req, res) {
 
 app.post('/sendInvite', function(req, res) {
 	console.log(req.body.idStartup);
-	console.log(req.body.idStartup);
-	console.log(req.body.position);
+	console.log(req.body.possition);
 	res.json({ ans: true });
 });
 
@@ -186,6 +185,7 @@ app.get('/mystartup', function(req, res) {
 	var mystartup = {
 		role: "master", //master||member||no
 		startup:{
+			id: 32,
 			title: 'Площадка для стартапов',
 			description: 'Создать сайт, где люди смогут обхединяться в стартапы и создавать их. И еще текст тест',
 			messages:[],
@@ -197,7 +197,7 @@ app.get('/mystartup', function(req, res) {
 });
 
 var more_info = {
-	author_img: 'people.svg', 
+	author_img: '../../img/icon/people.svg', 
 	author_name: 'Вася Вася',
 	need_people: [
 		{
@@ -216,10 +216,10 @@ var more_info = {
 };
 var startups = [
 	{title: 'Площадка для ddddстартапов', body: 'Создать сайт, где люди смогут обхединяться в стартапы и создавать их.', id: 3, more_info: more_info},
-	{title: 'Площадка для стартапов', body: 'Создать сайт, где люди смогут обхединяться в стартапы и создавать их.', id: 4, more_info: more_info},
-	{title: 'Площадка для стартапов', body: 'Создать сайт, где люди смогут обхединяться в стартапы и создавать их.', id: 5, more_info: more_info},
+	{title: 'Площадка для стартапов', body: 'Создать сайт, где люди смогут х.', id: 4, more_info: more_info},
+	{title: 'Площадка для стартапов', body: 'Создать сайт, где люди смогут дать сайт, где люди смогут дать сайт, где люди смогут обхединяться в стартапы и создавать их.', id: 5, more_info: more_info},
 	{title: 'Площадка для стартапов', body: 'Создать сайт, где люди смогут обхединяться в стартапы и создавать их.', id: 6, more_info: more_info},
-	{title: 'Площадка для стартапов', body: 'Создать сайт, где люди смогут обхединяться в стартапы и создавать их.', id: 7, more_info: more_info},
+	{title: 'Площадка для стартапов', body: 'Создать сайт, где люди смогут обхединяться в стартапы и создавать их обхединяться в стартапы и создавать их.', id: 7, more_info: more_info},
 	{title: 'Площадка для стартаdwadwв', body: 'Создать сайт, где люди смогут обхединяться в стартапы и создавать их.', id: 8, more_info: more_info}
 ];
 app.post('/findStartups', function(req, res) {
@@ -243,7 +243,7 @@ var messages = [
     {
         author_icon_path: '../../img/icon/vasia.jpg',
         author_name: 'Вася Васькин',
-        time: '122',
+        time: '1557491016700',
         text: 'что то в сообщении'
     },
     {
@@ -259,12 +259,12 @@ app.get('/getMsgs', function(req, res) {
 	var fmsg = {
         author_icon_path: '../../img/icon/vasia.jpg',
         author_name: 'Вася Васькин',
-        time: '122',
+        time: '1557491016700',
         text: 'что то в сообщении'
     }
    res.json({
    	msgs: [fmsg, fmsg, fmsg, fmsg, fmsg, fmsg],
-   	moreHistoryExists: true,
+   	moreHistoryExists: true, // Есть ли предыдущие сообщения в истории
    	idFMsg: 25, // чтобы понимать с какого сообщ прошлые подгружать
    	idLMsg: 40 // чтобы понимать какие сообщения будут новыми
    });
@@ -274,7 +274,7 @@ app.post('/getNewMsgs', function(req, res) {
 	var fmsg = {
         author_icon_path: '../../img/icon/vasia.jpg',
         author_name: 'Вася Васькин',
-        time: '122',
+        time: '1557491016700',
         text: 'новые новые сообщения'
    }
    res.json({
@@ -288,7 +288,7 @@ app.post('/getHistoryMsgs', function(req, res) {
 	var fmsg = {
         author_icon_path: '../../img/icon/vasia.jpg',
         author_name: 'Вася Васькин',
-        time: '122',
+        time: '1557491016700',
         text: 'старые сообщения'
    }
    res.json({
@@ -299,16 +299,16 @@ app.post('/getHistoryMsgs', function(req, res) {
 });
 
 app.post('/sendMsg', function(req, res) {
-	// console.log(req.body);
-	// messages.push(req.body.text);
-	res.json(messages);
+	console.log(req.body);
+	// idLMsg Тут будет являться id этого сообщения которое отправлено по /sendMsg
+	res.json({idLMsg: 5});
 });
 
 app.get('/getMembers', function(req, res) {
 	var members = [
-		{name: 'Вася Грингки', job: 'js программист', img_src: '../../img/icon/vasia.jpg', id: 21, show_popup: false},
-		{name: 'Вася Грингки2', job: 'маркетолог', img_src: '../../img/icon/vasia.jpg', id: 31, show_popup: false},
-		{name: 'Вася Грингки3', job: 'дизайнер', img_src: '../../img/icon/vasia.jpg', id: 41, show_popup: false}
+		{name: 'Вася Грингки', job: 'js программист', img_src: '../../img/icon/vasia.jpg', id: 21},
+		{name: 'Вася Грингки2', job: 'маркетолог', img_src: '../../img/icon/vasia.jpg', id: 31},
+		{name: 'Вася Грингки3', job: 'дизайнер', img_src: '../../img/icon/vasia.jpg', id: 41}
 	];
 	var isAdmin = true;
    res.json({
@@ -325,9 +325,9 @@ app.post('/delMember', function(req, res) {
 app.get('/getInvites', function(req, res) {
 	var jobs = ['js программист', 'маркетолог', 'дизайнер'];
 	var invites = [
-		{name: 'Вася Грингки1', jobList: jobs, img_src: '../../img/icon/vasia.jpg', id: 21},
-		{name: 'Вася Грингки2', jobList: jobs, img_src: '../../img/icon/vasia.jpg', id: 31},
-		{name: 'Вася Грингки3', jobList: jobs, img_src: '../../img/icon/vasia.jpg', id: 41}
+		{name: 'Вася Грингки1', jobList: jobs, possitionWanted: 'маркетолог', aboute: 'знаю такие то языки, работал в таких то проектах', img_src: '../../img/icon/vasia.jpg', id: 21},
+		{name: 'Вася Грингки2', jobList: jobs, possitionWanted: 'дизайнер', aboute: 'знаю такие то языки, работал в таких то проектах', img_src: '../../img/icon/vasia.jpg', id: 31},
+		{name: 'Вася Грингки3', jobList: jobs, possitionWanted: 'маркетолог', aboute: 'знаю такие то языки, работал в таких то проектах', img_src: '../../img/icon/vasia.jpg', id: 41}
 	];
    res.json({
    	invites: invites
@@ -339,7 +339,6 @@ app.post('/ansOfInvite', function(req, res) {
 	res.json({name: 'Вася Грингки', job: req.body.job});
 });
 
-
 app.get('/exitFromStartup', function(req, res) {
    res.json('kaawdda');
 });
@@ -349,6 +348,7 @@ app.post('/ChangeStartup', function(req, res) {
 	
    res.json({ans: 'awd'});
 });
+
 
 
 // catch 404 and forward to error handler
