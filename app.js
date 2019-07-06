@@ -99,7 +99,7 @@ app.get('/getInfoProfile', function(req, res) {
 			img_src: '../../img/icon/vasia.jpg',
 			email: 'email@yandex.ru',
 			fname: 'Вася',
-			sname: 'Васькин',
+			sname: 'Грински',
 			aboute: 'что то о себе'
 		}
 	}

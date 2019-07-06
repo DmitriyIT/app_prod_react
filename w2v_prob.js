@@ -7,10 +7,10 @@ var word2vec = require('./word2vec');
  * - cosCompareVsArr     (a, arr)			  => arr of cosCompare
  */
 
-// word2vec.getVectorPhrase('новый старdтап сдdелают', function(res_vec) {console.log(res_vec)});
+word2vec.getVectorPhrase('новый старdтап сдdелают', function(res_vec) {console.log(res_vec)});
 // console: vector of 50 dimention  [ ... -0.07397758960723877, -0.07949069887399673, 0.007408923469483852, ... ]
 
-// console.log(word2vec.cosCompare([1, 2, 4], [2, 1, 0]));
+console.log(word2vec.cosCompare([1, 2, 4], [2, 1, 0]));
 // console: 0.3903600291794133  
 // res in [0; 1]:
 // 	near 0 - very dissimilar
